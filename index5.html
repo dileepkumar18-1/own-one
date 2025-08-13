@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>College Placement Drive</title>
+   <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f2f2f2;
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .search-bar {
+      margin-bottom: 20px;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .profile-card {
+      background: white;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-left: 5px solid #3498db;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .profile-card h3 {
+      margin: 0;
+    }
+    .profile-card p {
+      margin: 5px 0;
+    }
+    .profile-card a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: #ddd;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>XYZ College - Placement Drive 2025</h1>
+    <p>List of students who got placed</p>
+  </header>
+
+  <div class="container">
+    <div class="search-bar">
+      <input type="text" id="search" placeholder="Search by name, branch or company...">
+    </div>
+
+    <div id="profiles">
+      <!-- Profiles will be rendered here -->
+    </div>
+  </div>
+
+  <footer>
+    © 2025 XYZ College | Placement Cell
+  </footer>
+
+  <script>
+    const students = [
+      {
+        name: "Amit Sharma",
+        branch: "Computer Science",
+        company: "Google",
+        role: "Software Engineer",
+        profile: "https://linkedin.com/in/amitsharma"
+      },
+      {
+        name: "Sneha Reddy",
+        branch: "Information Technology",
+        company: "Amazon",
+        role: "Data Analyst",
+        profile: "https://linkedin.com/in/snehareddy"
+      },
+      {
+        name: "Ravi Kumar",
+        branch: "Electronics",
+        company: "TCS",
+        role: "Systems Engineer",
+        profile: "https://linkedin.com/in/ravikumar"
+      },
+      {
+        name: "Priya Verma",
+        branch: "Mechanical",
+        company: "Infosys",
+        role: "Associate Engineer",
+        profile: "https://linkedin.com/in/priyaverma"
+      }
+      // Add more students here
+    ];
+
+    const profilesDiv = document.getElementById('profiles');
+    const searchInput = document.getElementById('search');
+
+    function renderProfiles(filter = "") {
+      profilesDiv.innerHTML = "";
+      const filtered = students.filter(student =>
+        student.name.toLowerCase().includes(filter.toLowerCase()) ||
+        student.branch.toLowerCase().includes(filter.toLowerCase()) ||
+        student.company.toLowerCase().includes(filter.toLowerCase())
+      );
+
+      if (filtered.length === 0) {
+        profilesDiv.innerHTML = "<p>No matching results found.</p>";
+        return;
+      }
+
+      filtered.forEach(student => {
+        const card = document.createElement('div');
+        card.className = "profile-card";
+        card.innerHTML = `
+          <h3>${student.name}</h3>
+          <p><strong>Branch:</strong> ${student.branch}</p>
+          <p><strong>Company:</strong> ${student.company}</p>
+          <p><strong>Role:</strong> ${student.role}</p>
+          <p><a href="${student.profile}" target="_blank">View Profile</a></p>
+        `;
+        profilesDiv.appendChild(card);
+      });
+    }
+
+    // Initial render
+    renderProfiles();
+
+    // Add search functionality
+    searchInput.addEventListener('input', (e) => {
+      renderProfiles(e.target.value);
+    });
+  </script>
+</body>
+</html>
